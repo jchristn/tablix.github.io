@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tablix - Database Gateway for AI Agents | MCP, REST & NL2SQL</title>
+    <meta
+      name="description"
+      content="Open-source database gateway for AI agents. Schema discovery, durable context, guarded SQL execution, and verified answers over MCP and REST. SQLite, PostgreSQL, MySQL, SQL Server. Self-hosted, MIT licensed."
+    />
+    <meta
+      name="keywords"
+      content="mcp database server, ai agent sql, nl2sql open source, text to sql postgres, claude code database access, mcp postgres server, self-hosted nl2sql, ai database gateway"
+    />
+    <link rel="icon" href="assets/icon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="assets/icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (() => {
+        const queryTheme = new URLSearchParams(window.location.search).get("theme");
+        const savedTheme = localStorage.getItem("tablix-theme");
+        const requestedTheme = queryTheme === "dark" || queryTheme === "light" ? queryTheme : null;
+        document.documentElement.dataset.theme = requestedTheme || savedTheme || "dark";
+      })();
+    </script>
+    <meta property="og:title" content="Tablix - Database Gateway for AI Agents" />
+    <meta
+      property="og:description"
+      content="Schema discovery, durable context, guarded SQL execution, and verified answers for AI agents over MCP and REST."
+    />
+    <meta property="og:image" content="assets/logo.png" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Tablix home" target="_blank" rel="noopener">
+        <img src="assets/icon.png" alt="" />
+        <span>Tablix</span>
+      </a>
+      <nav>
+        <a href="#product" target="_blank" rel="noopener">Product</a>
+        <a href="#how-it-works" target="_blank" rel="noopener">How It Works</a>
+        <a href="#use-cases" target="_blank" rel="noopener">Use Cases</a>
+        <a href="#docs" target="_blank" rel="noopener">Docs</a>
+        <a href="#getting-started" target="_blank" rel="noopener">Get Started</a>
+      </nav>
+      <div class="topbar-actions">
+        <button class="icon-button theme-toggle" type="button" aria-label="Switch to light mode" title="Theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.99 12.67A9 9 0 1 1 11.33 3.01 7 7 0 0 0 20.99 12.67Z"></path>
+          </svg>
+        </button>
+        <a class="icon-button github-link" href="https://github.com/jchristn/Tablix" aria-label="Open Tablix on GitHub" title="GitHub" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.71.5.09.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.9 1.56 2.35 1.11 2.92.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.36 9.36 0 0 1 12 6.94c.85 0 1.71.12 2.51.35 1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.49A10.05 10.05 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">MIT licensed - MCP, REST, dashboard - Docker-ready</p>
+          <h1 id="hero-title">Grounded answers from your database, backed by real queries.</h1>
+          <p class="hero-description">
+            Tablix connects to databases you define, crawls the schema, uses your configured model to derive editable context, and gives people and agents a controlled way to ask questions of live data.
+          </p>
+          <p class="hero-description compact">
+            Built-in database chat for NL2SQL, MCP for coding agents, REST for applications, and guarded execution that returns SQL, row counts, and evidence with the answer.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="#getting-started" target="_blank" rel="noopener">Start with Docker</a>
+            <a class="button secondary" href="https://github.com/jchristn/Tablix" target="_blank" rel="noopener">View on GitHub</a>
+          </div>
+          <a class="text-link hero-link" href="https://github.com/jchristn/Tablix/blob/main/MCP_API.md" target="_blank" rel="noopener">Read the MCP tool contract</a>
+          <p class="trust-line">No signup. No cloud dependency. No telemetry. Your data stays in your infrastructure.</p>
+        </div>
+        <div class="hero-proof" aria-label="Tablix quickstart preview">
+          <div class="terminal hero-terminal">
+            <div class="terminal-top">
+              <span></span>
+              <span></span>
+              <span></span>
+              <button class="copy-button" type="button" data-copy-target="hero-code">Copy</button>
+            </div>
+            <pre><code id="hero-code">git clone https://github.com/jchristn/Tablix.git
+cd Tablix/docker
+docker compose up -d</code></pre>
+            <div class="terminal-output" aria-label="Expected local services">
+              <p><strong>REST</strong> http://localhost:9100</p>
+              <p><strong>Dashboard</strong> http://localhost:9101</p>
+              <p><strong>MCP</strong> http://localhost:9102/rpc</p>
+            </div>
+          </div>
+          <button class="screenshot-trigger hero-screenshot-trigger" type="button" data-screenshot="assets/ss5.png" data-screenshot-alt="Tablix chat showing a verified SQL-backed answer">
+            <img class="dashboard-shot" src="assets/ss5.png" alt="Tablix chat showing a verified SQL-backed answer" />
+          </button>
+        </div>
+      </section>
+
+      <section class="section problem" aria-labelledby="problem-title">
+        <div class="section-heading">
+          <p class="eyebrow">The problem</p>
+          <h2 id="problem-title">Models can write SQL. They still need to understand your data.</h2>
+          <p>
+            A capable model can produce clean SQL against a schema it only half understands. It can infer joins from table names, treat ambiguous business words as obvious, and return a confident answer before anything was actually executed.
+          </p>
+          <p>
+            Tablix gives that model the missing layer: crawled schema, durable human-editable context, model-backed database chat, and a query path that runs under explicit guardrails.
+          </p>
+        </div>
+        <div class="feature-grid three">
+          <article class="feature-card failure-card">
+            <span class="card-icon">?</span>
+            <h3>Structure gets guessed</h3>
+            <p>Column names, join paths, and business entities are inferred from thin clues instead of discovered.</p>
+          </article>
+          <article class="feature-card failure-card">
+            <span class="card-icon">!</span>
+            <h3>Results get fabricated</h3>
+            <p>Totals and row counts are only trustworthy when they came from an executed query.</p>
+          </article>
+          <article class="feature-card failure-card">
+            <span class="card-icon">/</span>
+            <h3>The loop stays open</h3>
+            <p>SQL handed back to a user is a draft. Executed SQL with rows and evidence is an answer.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="product" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">What it is</p>
+          <h2>Database chat, schema context, and agent access in one local stack.</h2>
+          <p>
+            Tablix is a self-hosted .NET server and React dashboard for asking natural-language questions of databases. It connects to user-defined databases, crawls schema, derives editable context with a configured model, and exposes the same workflows through the UI, MCP, and REST.
+          </p>
+        </div>
+        <div class="interface-grid">
+          <article class="interface-card">
+            <h3>Database chat</h3>
+            <p>Ask questions in the dashboard and get NL2SQL answers backed by executed queries, returned rows, SQL, row counts, and evidence.</p>
+          </article>
+          <article class="interface-card">
+            <h3>Schema and context</h3>
+            <p>Crawl tables, keys, indexes, and relationships, then generate database- and table-level context that can be edited and reused.</p>
+          </article>
+          <article class="interface-card">
+            <h3>Multiple protocols</h3>
+            <p>Use the dashboard for people, MCP for tool-capable coding agents, and REST for applications and automation.</p>
+          </article>
+          <article class="interface-card">
+            <h3>Multiple database types</h3>
+            <p>Connect SQLite, PostgreSQL, MySQL, and SQL Server databases from the same server and dashboard.</p>
+          </article>
+          <article class="interface-card">
+            <h3>Guarded query execution</h3>
+            <p>Set allowed statement types per database, scope calls to the selected connection, and reject multi-statement SQL.</p>
+          </article>
+          <article class="interface-card">
+            <h3>Model provider setup</h3>
+            <p>Configure and validate Ollama, OpenAI, OpenAI-compatible endpoints, or Gemini before database chat uses them.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="how-it-works" class="section band">
+        <div class="section-heading">
+          <p class="eyebrow">How it works</p>
+          <h2>Five steps from connection to answer.</h2>
+        </div>
+        <div class="workflow-layout">
+          <ol class="timeline">
+            <li>
+              <strong>Connect.</strong>
+              Add the database connections Tablix should know about through the dashboard, setup wizard, or API.
+            </li>
+            <li>
+              <strong>Crawl and contextualize.</strong>
+              Tablix reads schema geometry, generates editable database and table context, and keeps that context available to the UI, MCP, and REST.
+            </li>
+            <li>
+              <strong>Define models and validate.</strong>
+              Configure a provider, model, endpoint, and API key, then validate that the model path supports the tool-driven database workflow.
+            </li>
+            <li>
+              <strong>Ask.</strong>
+              A user asks in dashboard chat, an agent asks over MCP, or an application calls REST. Tablix supplies the schema and context needed to build SQL.
+            </li>
+            <li>
+              <strong>Review the answer.</strong>
+              Tablix guards and executes the query, returns real rows to the model, and exposes the verification state, SQL, row count, and evidence.
+            </li>
+          </ol>
+          <div class="loop-diagram" aria-label="Tablix workflow diagram">
+            <div>Connect</div>
+            <div>Crawl</div>
+            <div>Model</div>
+            <div>Ask</div>
+            <div>Verify</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="features-title">
+        <div class="section-heading">
+          <p class="eyebrow">Features</p>
+          <h2 id="features-title">What you actually get.</h2>
+        </div>
+        <div class="feature-grid three">
+          <article class="feature-card">
+            <h3>Verified database answers</h3>
+            <p>Responses distinguish verified, partial, blocked, and ambiguous outcomes so a user can see what actually happened.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Editable context</h3>
+            <p>Database and table context persists between sessions, so corrected definitions and useful join notes do not disappear.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Guarded SQL</h3>
+            <p>Keep production-shaped access sane with per-database statement allowlists and selected-database execution.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Large-schema discovery</h3>
+            <p>Agents can page through compact table and relationship indexes, then inspect only the tables relevant to the question.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Ambiguity handling</h3>
+            <p>When words like active, latest, customer, or revenue are unclear, the flow can ask for clarification instead of guessing.</p>
+          </article>
+          <article class="feature-card">
+            <h3>Dashboard workflows</h3>
+            <p>Use setup, schema browsing, context editing, query running, CSV/JSON export, and chat without building admin tools first.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="docs" class="section code-section" aria-labelledby="show-title">
+        <div class="section-heading">
+          <p class="eyebrow">Show, do not tell</p>
+          <h2 id="show-title">From connection string to grounded answer.</h2>
+        </div>
+        <div class="code-tabs" data-tabs>
+          <div class="tab-list" role="tablist" aria-label="Integration examples">
+            <button class="tab-button active" type="button" role="tab" aria-selected="true" data-tab="mcp">MCP</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="loop">Agent loop</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-tab="rest">REST</button>
+          </div>
+          <div class="tab-panel active" data-panel="mcp">
+            <div class="terminal">
+              <div class="terminal-top"><span></span><span></span><span></span><button class="copy-button" type="button" data-copy-target="mcp-code">Copy</button></div>
+              <pre><code id="mcp-code">{
+  "mcpServers": {
+    "tablix": {
+      "type": "http",
+      "url": "http://localhost:9102/rpc"
+    }
+  }
+}</code></pre>
+            </div>
+            <p class="panel-note">Add the local HTTP endpoint to Claude, Codex, Cursor, Gemini, or any MCP client that supports HTTP servers.</p>
+            <div class="terminal secondary-terminal">
+              <pre><code>MCP server name: tablix
+Transport: HTTP
+URL: http://localhost:9102/rpc</code></pre>
+            </div>
+          </div>
+          <div class="tab-panel" data-panel="loop">
+            <div class="terminal">
+              <pre><code>discover databases
+read database and table context
+page through tables and relationships
+inspect only the tables that matter
+execute a permitted query
+return SQL, row count, rows, and evidence
+persist useful context corrections</code></pre>
+            </div>
+          </div>
+          <div class="tab-panel" data-panel="rest">
+            <div class="terminal">
+              <div class="terminal-top"><span></span><span></span><span></span><button class="copy-button" type="button" data-copy-target="rest-code">Copy</button></div>
+              <pre><code id="rest-code">curl -X POST http://localhost:9100/v1/database/db_orders/query \
+  -H "Authorization: Bearer tablixadmin" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"SELECT COUNT(*) AS c FROM orders WHERE status = 1"}'</code></pre>
+            </div>
+            <div class="terminal secondary-terminal">
+              <pre><code>{
+  "Success": true,
+  "RowsReturned": 1,
+  "TotalMs": 4,
+  "Data": { "Columns": ["c"], "Rows": [[1847]] }
+}</code></pre>
+            </div>
+          </div>
+        </div>
+        <p class="caption">
+          Full contracts in
+          <a href="https://github.com/jchristn/Tablix/blob/main/REST_API.md" target="_blank" rel="noopener">REST_API.md</a>
+          and
+          <a href="https://github.com/jchristn/Tablix/blob/main/MCP_API.md" target="_blank" rel="noopener">MCP_API.md</a>,
+          plus Swagger UI at <code>/swagger</code> on any running instance.
+        </p>
+      </section>
+
+      <section id="screenshots" class="screenshot-section" aria-label="Dashboard screenshots">
+        <div class="screenshot-copy">
+          <p class="eyebrow">Dashboard included</p>
+          <h2>Configure, crawl, query, and chat without building admin tooling first.</h2>
+          <p>The built-in UI covers setup, model validation, database details, query results, context editing, streaming chat, inline tool calls, and exports.</p>
+        </div>
+        <div class="screenshot-grid">
+          <button class="screenshot-trigger" type="button" data-screenshot="assets/ss1.png" data-screenshot-alt="Tablix database detail modal">
+            <img src="assets/ss1.png" alt="Tablix database detail modal" />
+          </button>
+          <button class="screenshot-trigger" type="button" data-screenshot="assets/ss2.png" data-screenshot-alt="Tablix dashboard database list">
+            <img src="assets/ss2.png" alt="Tablix dashboard database list" />
+          </button>
+          <button class="screenshot-trigger" type="button" data-screenshot="assets/ss3.png" data-screenshot-alt="Tablix table context view">
+            <img src="assets/ss3.png" alt="Tablix table context view" />
+          </button>
+          <button class="screenshot-trigger" type="button" data-screenshot="assets/ss4.png" data-screenshot-alt="Tablix query result view">
+            <img src="assets/ss4.png" alt="Tablix query result view" />
+          </button>
+        </div>
+      </section>
+
+      <section id="use-cases" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Use cases</p>
+          <h2>When to use Tablix.</h2>
+        </div>
+        <div class="use-case-list">
+          <article>
+            <span>For engineers running Claude Code, Cursor, or Codex</span>
+            <h3>Coding agents that need live database facts</h3>
+            <p>Your agent can discover schema, read context explaining soft deletes, run permitted queries, and return actual row counts instead of asking you to paste output back into chat.</p>
+          </article>
+          <article>
+            <span>For data and platform teams</span>
+            <h3>Self-serve analytics without a BI rollout</h3>
+            <p>Non-SQL colleagues ask questions in dashboard chat and get answers with SQL and row count attached. Ambiguous questions can become clarifying questions.</p>
+          </article>
+          <article>
+            <span>For whoever inherited it</span>
+            <h3>Onboarding a legacy schema</h3>
+            <p>Point Tablix at the database with hundreds of tables and thin foreign keys. It crawls, surfaces inferred join candidates, and generates first-draft context you can correct.</p>
+          </article>
+          <article>
+            <span>For AI engineers</span>
+            <h3>Grounding an internal assistant</h3>
+            <p>Give an assistant a controlled path to live data so operational questions return numbers from the system of record, not stale index guesses.</p>
+          </article>
+          <article>
+            <span>For DevOps and SRE</span>
+            <h3>Ops and incident triage</h3>
+            <p>Connect a read-only database entry and let an agent answer what is queued, stuck, or delayed without opening a SQL shell mid-incident.</p>
+          </article>
+          <article>
+            <span>For platform teams</span>
+            <h3>Living database documentation</h3>
+            <p>Table context becomes documentation that humans and agents both read. Corrections can persist instead of staying buried in a chat transcript.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="getting-started" class="section docker-band">
+        <div class="section-heading">
+          <p class="eyebrow">Getting started</p>
+          <h2>Docker starts the full stack.</h2>
+          <p>Compose starts the server, dashboard, MCP endpoint, product state, and a sample SQLite database.</p>
+        </div>
+        <div class="docker-layout">
+          <div class="terminal">
+            <div class="terminal-top"><span></span><span></span><span></span><button class="copy-button" type="button" data-copy-target="docker-code">Copy</button></div>
+            <pre><code id="docker-code">git clone https://github.com/jchristn/Tablix.git
+cd Tablix/docker
+docker compose pull
+docker compose up -d</code></pre>
+          </div>
+          <div class="service-list">
+            <h3>Default local services</h3>
+            <dl>
+              <div><dt>REST API</dt><dd><a href="http://localhost:9100" target="_blank" rel="noopener">http://localhost:9100</a></dd></div>
+              <div><dt>Swagger UI</dt><dd><a href="http://localhost:9100/swagger" target="_blank" rel="noopener">http://localhost:9100/swagger</a></dd></div>
+              <div><dt>Dashboard</dt><dd><a href="http://localhost:9101" target="_blank" rel="noopener">http://localhost:9101</a></dd></div>
+              <div><dt>MCP</dt><dd><a href="http://localhost:9102/rpc" target="_blank" rel="noopener">http://localhost:9102/rpc</a></dd></div>
+            </dl>
+            <p class="api-key">Default API key: <code>tablixadmin</code></p>
+            <p class="api-key">Sample SQLite database ships with <code>users</code>, <code>orders</code>, and <code>line_items</code>.</p>
+          </div>
+        </div>
+        <div class="getting-steps">
+          <article>
+            <h3>Walk the wizard</h3>
+            <p>Open the dashboard, validate a model provider, validate a database, crawl schema, generate context, and end in Chat.</p>
+          </article>
+          <article>
+            <h3>Add Tablix to an MCP client</h3>
+            <div class="terminal small-terminal">
+              <pre><code>MCP server name: tablix
+Transport: HTTP
+URL: http://localhost:9102/rpc</code></pre>
+            </div>
+          </article>
+          <article>
+            <h3>Deploy with Docker</h3>
+            <p>Keep Tablix self-hosted, point it at databases with controlled permissions, and choose model providers that support tool calling.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section faq">
+        <div class="section-heading">
+          <p class="eyebrow">FAQ</p>
+          <h2>Questions engineers should ask first.</h2>
+        </div>
+        <div class="faq-grid">
+          <details open>
+            <summary>Does my data leave my infrastructure?</summary>
+            <p>No. Tablix is self-hosted. The only outbound calls are to whatever model provider you configure, and if you point it at local Ollama, there are none.</p>
+          </details>
+          <details>
+            <summary>Which models work?</summary>
+            <p>Tablix can configure Ollama, OpenAI, OpenAI-compatible endpoints, and Gemini through PolyPrompt. The database-chat and MCP workflow require a model/provider path with tool calling support.</p>
+          </details>
+          <details>
+            <summary>Can it write to my database?</summary>
+            <p>Only if you allow it. <code>AllowedQueries</code> is per database entry, and <code>["SELECT"]</code> is the sane default. Back that up with a read-only database role.</p>
+          </details>
+          <details>
+            <summary>How does it handle a thousand tables?</summary>
+            <p>Agents page through compact table and relationship indexes, then request full detail only for tables relevant to the question.</p>
+          </details>
+          <details>
+            <summary>What does verified mean?</summary>
+            <p>Tablix executed SQL against your database and the model answered from returned rows. The envelope also distinguishes partial, blocked, and ambiguous answers.</p>
+          </details>
+          <details>
+            <summary>Is it production-ready?</summary>
+            <p>Tablix is early software. It is a strong fit for internal tools, development environments, and read-only production access with proper database permissions.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="cta" aria-labelledby="cta-title">
+        <div>
+          <p class="eyebrow">Call to action</p>
+          <h2 id="cta-title">Give your agents a database they can query with context.</h2>
+          <p>Clone the repo, start Docker, open the dashboard, and add the MCP endpoint to your agent.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="button primary" href="#getting-started" target="_blank" rel="noopener">Deploy with Docker</a>
+          <a class="button secondary" href="https://github.com/jchristn/Tablix" target="_blank" rel="noopener">Star on GitHub</a>
+          <a class="button ghost" href="https://github.com/jchristn/Tablix.git" target="_blank" rel="noopener">Clone the repo</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-intro">
+        <a class="brand footer-brand" href="#top" target="_blank" rel="noopener">
+          <img src="assets/icon.png" alt="" />
+          <span>Tablix</span>
+        </a>
+        <p>Tablix - database chat, schema context, and agent access for live data.</p>
+      </div>
+      <div class="footer-links">
+        <div>
+          <h3>Product</h3>
+          <a href="#product" target="_blank" rel="noopener">Overview</a>
+          <a href="#how-it-works" target="_blank" rel="noopener">How It Works</a>
+          <a href="#use-cases" target="_blank" rel="noopener">Use Cases</a>
+        </div>
+        <div>
+          <h3>Docs</h3>
+          <a href="#getting-started" target="_blank" rel="noopener">Quickstart</a>
+          <a href="https://github.com/jchristn/Tablix/blob/main/REST_API.md" target="_blank" rel="noopener">REST API</a>
+          <a href="https://github.com/jchristn/Tablix/blob/main/MCP_API.md" target="_blank" rel="noopener">MCP API</a>
+          <a href="https://github.com/jchristn/Tablix/blob/main/GETTING_STARTED.md" target="_blank" rel="noopener">Guide</a>
+        </div>
+        <div>
+          <h3>Community</h3>
+          <a href="https://github.com/jchristn/Tablix" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/jchristn/Tablix/issues" target="_blank" rel="noopener">Issues</a>
+          <a href="https://github.com/jchristn/Tablix/discussions" target="_blank" rel="noopener">Discussions</a>
+          <a href="https://github.com/jchristn/Tablix/blob/main/LICENSE.md" target="_blank" rel="noopener">MIT License</a>
+        </div>
+      </div>
+      <p class="copyright">(c)2026 Joel Christner</p>
+    </footer>
+
+    <div class="screenshot-modal" data-screenshot-modal hidden>
+      <button class="modal-backdrop" type="button" aria-label="Close screenshot" data-close-screenshot></button>
+      <div class="modal-frame" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+        <button class="modal-close" type="button" aria-label="Close screenshot" data-close-screenshot>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+        <img src="" alt="" data-screenshot-modal-image />
+      </div>
+    </div>
+
+    <script>
+      (() => {
+        const themeButton = document.querySelector(".theme-toggle");
+        const setTheme = (theme) => {
+          document.documentElement.dataset.theme = theme;
+          localStorage.setItem("tablix-theme", theme);
+          themeButton.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+        };
+
+        themeButton.addEventListener("click", () => {
+          setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+        });
+
+        setTheme(document.documentElement.dataset.theme || "dark");
+
+        document.querySelectorAll("[data-tabs]").forEach((tabs) => {
+          const buttons = tabs.querySelectorAll("[data-tab]");
+          const panels = tabs.querySelectorAll("[data-panel]");
+          buttons.forEach((button) => {
+            button.addEventListener("click", () => {
+              buttons.forEach((item) => {
+                item.classList.toggle("active", item === button);
+                item.setAttribute("aria-selected", item === button ? "true" : "false");
+              });
+              panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === button.dataset.tab));
+            });
+          });
+        });
+
+        document.querySelectorAll("[data-copy-target]").forEach((button) => {
+          button.addEventListener("click", async () => {
+            const target = document.getElementById(button.dataset.copyTarget);
+            if (!target) return;
+            await navigator.clipboard.writeText(target.innerText);
+            const previous = button.textContent;
+            button.textContent = "Copied - go run it";
+            window.setTimeout(() => {
+              button.textContent = previous;
+            }, 1800);
+          });
+        });
+
+        const modal = document.querySelector("[data-screenshot-modal]");
+        const modalImage = document.querySelector("[data-screenshot-modal-image]");
+        let lastScreenshotTrigger = null;
+
+        const closeScreenshot = () => {
+          modal.hidden = true;
+          document.body.classList.remove("modal-open");
+          modalImage.removeAttribute("src");
+          modalImage.alt = "";
+          if (lastScreenshotTrigger) {
+            lastScreenshotTrigger.focus();
+          }
+        };
+
+        document.querySelectorAll("[data-screenshot]").forEach((button) => {
+          button.addEventListener("click", () => {
+            lastScreenshotTrigger = button;
+            modalImage.src = button.dataset.screenshot;
+            modalImage.alt = button.dataset.screenshotAlt || "";
+            modal.hidden = false;
+            document.body.classList.add("modal-open");
+            modal.querySelector("[data-close-screenshot]").focus();
+          });
+        });
+
+        document.querySelectorAll("[data-close-screenshot]").forEach((button) => {
+          button.addEventListener("click", closeScreenshot);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !modal.hidden) {
+            closeScreenshot();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
